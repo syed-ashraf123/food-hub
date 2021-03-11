@@ -7,6 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles({
   },
 });
 
-function MediaCard({ name }) {
+function MediaCard({ name, thumbnail }) {
   const classes = useStyles();
 
   return (
@@ -26,7 +27,7 @@ function MediaCard({ name }) {
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image="/static/images/cards/contemplative-reptile.jpg"
+            image={"http://localhost:4000/images/" + thumbnail}
             title="Contemplative Reptile"
           />
           <CardContent>
@@ -40,11 +41,13 @@ function MediaCard({ name }) {
           </CardContent>
         </CardActionArea>
         <CardActions>
+          <Link to="/restaurant">
+            <Button size="small" color="primary">
+              Order
+            </Button>
+          </Link>
           <Button size="small" color="primary">
-            Share
-          </Button>
-          <Button size="small" color="primary">
-            Learn More
+            Website
           </Button>
         </CardActions>
       </Card>

@@ -3,6 +3,7 @@ import food from "./food.jpg";
 import "./body.css";
 import Typography from "@material-ui/core/Typography";
 import { RestaurantContext } from "./context";
+import DropDown from "./DropDown";
 function Body() {
   const { list, get } = useContext(RestaurantContext);
   const getRestaurant = get;
@@ -29,7 +30,8 @@ function Body() {
       </div>
       <div className="row d-flex justify-content-center">
         <div className="form__group field  border border-black rounded">
-          <button onClick={getRestaurant}>Search</button>
+          <DropDown />
+          {/* <button onClick={getRestaurant}>Search</button> */}
         </div>
       </div>
     </div>
