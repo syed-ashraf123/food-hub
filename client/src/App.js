@@ -8,6 +8,8 @@ import Signup from "./components/Singup";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { RestaurantProvider, RestaurantContext } from "./components/context";
 import RestaurantHome from "./components/RestaurantHome";
+import Login from "./components/Login";
+import LoggenInTry from "./components/LoggenInTry";
 function App() {
   return (
     <Router>
@@ -18,6 +20,8 @@ function App() {
               <Switch>
                 <Route path="/restaurant" exact component={RestaurantHome} />
                 <Route path="/signup" exact component={Signup} />
+                <Route path="/login" exact component={Login} />
+                <Route path="/loggenintry" exact component={LoggenInTry} />
                 <Route
                   path="/"
                   exact

@@ -31,7 +31,7 @@ function Copyright() {
 }
 
 const useStyles = makeStyles((theme) => ({
-  root1: {
+  root: {
     width: "100%",
     "& > * + *": {
       marginTop: theme.spacing(2),
@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
+export default function Login() {
   const classes = useStyles();
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
@@ -75,68 +75,27 @@ export default function SignUp() {
 
   const register = async (e) => {
     e.preventDefault();
-    try {
-      Axios.post("http://localhost:5000/api/user/register", {
-        name: userName,
-        email: email,
-        password: password,
+
+    Axios.post("http://localhost:5000/api/user/login", {
+      // name: userName,
+      email: email,
+      password: password,
+    })
+      .then((response) => {
+        console.log(response.data);
+        localStorage.setItem("auth-token", response.data);
+        // setSuccess(true);
       })
-        .then((response) => {
-          setSuccess(true);
-        })
-        .catch((error) => {
-          console.log(error.response.data.msg);
-          if (
-            error.response.data.msg ===
-            '"name" length must be at least 6 characters long'
-          ) {
-            registerStatus("Name length must be of 6 Characters long");
-          }
-
-          if (error.response.data.msg === '"name" is not allowed to be empty') {
-            registerStatus("Name Field Cannot be empty");
-          }
-
-          if (
-            error.response.data.msg ===
-            '"email" length must be at least 6 characters long'
-          ) {
-            registerStatus("Email length must be of 6 Characters long");
-          }
-
-          if (
-            error.response.data.msg === '"email" is not allowed to be empty'
-          ) {
-            registerStatus("Email Field Cannot be empty");
-          }
-
-          if (error.response.data.msg === "email exists") {
-            registerStatus("Email already exists");
-          }
-
-          if (
-            error.response.data.msg ===
-            '"password" length must be at least 6 characters long'
-          ) {
-            registerStatus("Password length must be of 6 Characters long");
-          }
-
-          if (
-            error.response.data.msg === '"password" is not allowed to be empty'
-          ) {
-            registerStatus("Password Field Cannot be empty");
-          }
-        });
-    } catch (error) {
-      console.log(error.reponse);
-    }
+      .catch((error) => {
+        console.log(error.response.data.msg);
+      });
   };
 
   return (
     <>
       {success ? <Redirect to="/restaurant" /> : null}
 
-      <div className={classes.root1}>
+      <div className={classes.root}>
         {status ? <Alert severity="error">{status}</Alert> : null}
       </div>
 
@@ -147,7 +106,7 @@ export default function SignUp() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Login
           </Typography>
           <form className={classes.form} noValidate>
             <Grid container spacing={2}>

@@ -48,6 +48,20 @@ function Navbar() {
               </a>
             </li>
           </Link>
+          <Link to="/login" style={{ textDecoration: "none" }}>
+            <li className="nav-item">
+              <a className="nav-link" href="/login">
+                Login
+              </a>
+            </li>
+          </Link>
+          <Link to="/loggenintry" style={{ textDecoration: "none" }}>
+            <li className="nav-item">
+              <a className="nav-link" href="/loggenintry">
+                Login
+              </a>
+            </li>
+          </Link>
         </ul>
       </div>
     </nav>
