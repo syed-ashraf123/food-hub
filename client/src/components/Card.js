@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   },
 });
 
-function MediaCard({ name, thumbnail }) {
+function MediaCard({ name, thumbnail, link }) {
   const classes = useStyles();
 
   return (
@@ -42,9 +42,11 @@ function MediaCard({ name, thumbnail }) {
         </CardActionArea>
         <CardActions>
           <Link to="/restaurant">
-            <Button size="small" color="primary">
-              Order
-            </Button>
+            <Link to={link}>
+              <Button size="small" color="primary">
+                Order
+              </Button>
+            </Link>
           </Link>
           <Button size="small" color="primary">
             Website

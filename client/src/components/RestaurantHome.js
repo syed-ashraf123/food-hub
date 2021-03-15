@@ -31,7 +31,7 @@ function RestaurantHome({ match }) {
           <div id="sideborder" className="my-auto">
             <div className="pt-5">
               <Typography variant="h2" className="ml-3">
-                {resItem[0].name}
+                Taj
               </Typography>
               <strong className="ml-4">Fast Food Corner</strong>
               <br />
