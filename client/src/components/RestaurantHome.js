@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./RestaurantHome.css";
-import Navbar from "./Navbar";
 import Typography from "@material-ui/core/Typography";
 import ItemCard from "./ItemsCard";
 
@@ -25,7 +24,6 @@ function RestaurantHome({ match }) {
   // };
   return (
     <div>
-      <Navbar />
       <div className="row">
         <div className="col-lg-6 col-sm-12 d-flex">
           <div id="sideborder" className="my-auto">

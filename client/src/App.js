@@ -10,6 +10,7 @@ import { RestaurantProvider, RestaurantContext } from "./components/context";
 import RestaurantHome from "./components/RestaurantHome";
 import Login from "./components/Login";
 import LoggenInTry from "./components/LoggenInTry";
+import SellerRegisteration from "./components/SellerRegisteration";
 function App() {
   return (
     <Router>
@@ -17,25 +18,30 @@ function App() {
         <div className="App">
           <div className="container-fluid">
             <div id="top">
+              <Navbar />
               <Switch>
                 <Route path="/restaurant" exact component={RestaurantHome} />
                 <Route path="/signup" exact component={Signup} />
                 <Route path="/login" exact component={Login} />
                 <Route path="/loggenintry" exact component={LoggenInTry} />
                 <Route
+                  path="/sellerregisteration"
+                  exact
+                  component={SellerRegisteration}
+                />
+                <Route
                   path="/"
                   exact
                   render={() => (
                     <React.Fragment>
-                      <Navbar />
                       <Body />
                       <CardList />
-                      <Footer />
                     </React.Fragment>
                   )}
                 />
                 <Route path="/restaurant/:id" component={RestaurantHome} />
               </Switch>
+              <Footer />
             </div>
           </div>
         </div>

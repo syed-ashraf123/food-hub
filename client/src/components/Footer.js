@@ -1,5 +1,6 @@
 import React from "react";
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -15,14 +16,16 @@ const Footer = () => {
             <strong>Hungry? Food Hub is here!!</strong>
             <br />
             <br />
-            <a
-              class="btn btn-danger btn-lg"
-              style={{ width: "400px" }}
-              href="#"
-              role="button"
-            >
-              Sell WIth Us
-            </a>
+            <Link to="/sellerregisteration" style={{ textDecoration: "none" }}>
+              <span
+                class="btn btn-danger btn-lg"
+                style={{ width: "400px" }}
+                href="/sellerregisteration"
+                role="button"
+              >
+                Sell WIth Us
+              </span>
+            </Link>
           </MDBCol>
           <MDBCol md="3">
             <h5 className="title">Follow Us On</h5>
