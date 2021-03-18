@@ -16,6 +16,7 @@ import Axios from "axios";
 import Alert from "@material-ui/lab/Alert";
 import { Redirect } from "react-router";
 import validator from "validator";
+import FormData from "form-data";
 
 function Copyright() {
   return (
@@ -69,7 +70,8 @@ export default function SellerRegisteration() {
   const [tel, setTel] = useState("");
   const [status, registerStatus] = useState();
   const [success, setSuccess] = useState(false);
-
+  const [hookthumbnail, sethookthunmbnail] = useState([]);
+  const [hookid, sethookid] = useState("");
   const validateEmail = (e) => {
     e.preventDefault();
     if (validator.isEmail(email)) {
@@ -81,17 +83,62 @@ export default function SellerRegisteration() {
 
   const register = async (e) => {
     e.preventDefault();
+
+    let formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("restaurantName", restaurantName);
+    formData.append("address", restaurantAddress);
+    formData.append("cruisine", cruisine);
+    formData.append("minimumorder", minimumOrder);
+    formData.append("tel", tel);
+    formData.append("thumbnail", hookthumbnail[0]);
+    formData.append("thumbnail1", hookthumbnail[1]);
+    formData.append("thumbnail2", hookthumbnail[2]);
+
+    // formData.append("thumbnail", hookthumbnail);
+    // hookthumbnail.forEach((file) => {
+    //   console.log(file);
+    //   formData.append("thumbnail", file);
+    // });
+
+    formData.append("id", hookid);
+    console.log("yyyy");
+    console.log(hookthumbnail[0]);
+    console.log(hookid);
     try {
-      Axios.post("http://localhost:5000/api/user/register", {
-        name: name,
-        email: email,
-        password: password,
-      })
+      Axios.post(
+        "http://localhost:4000/restaurantregisteration",
+        // {
+        //   name: name,
+        //   email: email,
+        //   password: password,
+        //   area: area,
+        //   restaurantName: restaurantName,
+        //   address: restaurantAddress,
+        //   cruisine: cruisine,
+        //   minimumorder: minimumOrder,
+        //   tel: tel,
+        //   thumbnail: [
+        //     thumbnailImage.files[0],
+        //     thumbnailImage.files[1],
+        //     thumbnailImage.files[2],
+        //   ],
+        //   id: ownerid.files[0],
+        // },
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
         .then((response) => {
           setSuccess(true);
         })
         .catch((error) => {
-          console.log(error.response.data.msg);
+          console.log(error.response);
           if (
             error.response.data.msg ===
             '"name" length must be at least 6 characters long'
@@ -140,7 +187,7 @@ export default function SellerRegisteration() {
 
   return (
     <>
-      {success ? <Redirect to="/restaurant" /> : null}
+      {/* {success ? <Redirect to="/restaurant" /> : null} */}
 
       <div className={classes.root1}>
         {status ? <Alert severity="error">{status}</Alert> : null}
@@ -293,14 +340,30 @@ export default function SellerRegisteration() {
               <Box ml={1} mt={1}>
                 <Button variant="contained" component="label">
                   Upload File
-                  <input type="file" multiple="multiple" hidden />
+                  <input
+                    id="resthumbnail"
+                    type="file"
+                    name="resthumbnail"
+                    multiple="multiple"
+                    onChange={(e) => {
+                      sethookthunmbnail(e.target.files);
+                    }}
+                    hidden
+                  />
                 </Button>
                 &nbsp; Select atleast 3 HD photos of restaurant
               </Box>
               <Box ml={1} mt={1}>
-                <Button variant="contained" component="label">
+                <Button variant="contained" name="id" component="label">
                   Upload File
-                  <input type="file" hidden />
+                  <input
+                    type="file"
+                    id="ownerid"
+                    onChange={(e) => {
+                      sethookid(e.target.files[0]);
+                    }}
+                    hidden
+                  />
                 </Button>
                 &nbsp; Select your ID
               </Box>
