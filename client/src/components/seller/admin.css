@@ -1,0 +1,10 @@
+.sidebar {
+  /* background-color: #f3f7f9; */
+  color: black;
+  background-image: url("https://thepassstreetfood.co.uk/wp-content/uploads/2017/08/Special-Background-40-1920-opacity-copy.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.fontsize {
+  font-size: 10px;
+}

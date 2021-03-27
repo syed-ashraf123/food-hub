@@ -62,6 +62,7 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [status, registerStatus] = useState();
+  const [address, setAddress] = useState();
   const [success, setSuccess] = useState(false);
 
   const validateEmail = (e) => {
@@ -76,65 +77,32 @@ export default function SignUp() {
   const register = async (e) => {
     e.preventDefault();
     try {
-      Axios.post("http://localhost:5000/api/user/register", {
-        name: userName,
-        email: email,
-        password: password,
+      Axios.post("http://localhost:4000/usersignup", {
+        Name: userName,
+        Email: email,
+        Password: password,
+        Address: address,
       })
         .then((response) => {
+          window.scrollTo(0, 0);
+
           setSuccess(true);
         })
         .catch((error) => {
-          console.log(error.response.data.msg);
-          if (
-            error.response.data.msg ===
-            '"name" length must be at least 6 characters long'
-          ) {
-            registerStatus("Name length must be of 6 Characters long");
-          }
+          window.scrollTo(0, 0);
 
-          if (error.response.data.msg === '"name" is not allowed to be empty') {
-            registerStatus("Name Field Cannot be empty");
-          }
-
-          if (
-            error.response.data.msg ===
-            '"email" length must be at least 6 characters long'
-          ) {
-            registerStatus("Email length must be of 6 Characters long");
-          }
-
-          if (
-            error.response.data.msg === '"email" is not allowed to be empty'
-          ) {
-            registerStatus("Email Field Cannot be empty");
-          }
-
-          if (error.response.data.msg === "email exists") {
-            registerStatus("Email already exists");
-          }
-
-          if (
-            error.response.data.msg ===
-            '"password" length must be at least 6 characters long'
-          ) {
-            registerStatus("Password length must be of 6 Characters long");
-          }
-
-          if (
-            error.response.data.msg === '"password" is not allowed to be empty'
-          ) {
-            registerStatus("Password Field Cannot be empty");
-          }
+          registerStatus(error.response.data.msg);
         });
     } catch (error) {
-      console.log(error.reponse);
+      window.scrollTo(0, 0);
+
+      registerStatus(error.reponse.data.msg);
     }
   };
 
   return (
     <>
-      {success ? <Redirect to="/restaurant" /> : null}
+      {/* {success ? <Redirect to="/restaurant" /> : null} */}
 
       <div className={classes.root1}>
         {status ? <Alert severity="error">{status}</Alert> : null}
@@ -191,6 +159,21 @@ export default function SignUp() {
                   autoComplete="current-password"
                   onChange={(e) => {
                     setPassword(e.target.value);
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="address"
+                  label="Address"
+                  type="text"
+                  id="address"
+                  autoComplete="Address"
+                  onChange={(e) => {
+                    setAddress(e.target.value);
                   }}
                 />
               </Grid>

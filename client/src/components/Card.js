@@ -18,21 +18,21 @@ const useStyles = makeStyles({
   },
 });
 
-function MediaCard({ name, thumbnail, link }) {
+function MediaCard({ res }) {
   const classes = useStyles();
-
+  console.log(res);
   return (
     <div className="col-lg-4 d-flex  justify-content-around mt-5">
       <Card className={classes.root}>
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image={"http://localhost:4000/images/" + thumbnail}
+            image={"http://localhost:4000/images/" + res.thumbnail[0]}
             title="Contemplative Reptile"
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
-              {name}
+              {res.restaurantName}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
               Lizards are a widespread group of squamate reptiles, with over
@@ -41,12 +41,10 @@ function MediaCard({ name, thumbnail, link }) {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Link to="/restaurant">
-            <Link to={link}>
-              <Button size="small" color="primary">
-                Order
-              </Button>
-            </Link>
+          <Link to={{ pathname: "/restaurant", state: { res: res } }}>
+            <Button size="small" color="primary">
+              Order
+            </Button>
           </Link>
           <Button size="small" color="primary">
             Website

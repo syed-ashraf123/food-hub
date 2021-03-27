@@ -12,6 +12,7 @@ const SellerDetails = mongoose.Schema({
   tel: String,
   thumbnail: [],
   id: String,
+  items: [],
 });
 
 module.exports = mongoose.model("SellerDetails", SellerDetails);

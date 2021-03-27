@@ -19,7 +19,7 @@ const Footer = () => {
             <Link to="/sellerregisteration" style={{ textDecoration: "none" }}>
               <span
                 class="btn btn-danger btn-lg"
-                style={{ width: "400px" }}
+                style={{ width: "300px" }}
                 href="/sellerregisteration"
                 role="button"
               >

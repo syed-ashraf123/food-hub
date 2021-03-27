@@ -3,10 +3,13 @@ import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { RestaurantContext } from "./context";
-
+import { useSelector, useDispatch } from "react-redux";
+import { get_restaurant } from "../action/action";
 function DropDown() {
-  const { list, get } = useContext(RestaurantContext);
-  const getRestaurant = get;
+  // const get_restaurant = useSelector((state) => state.get_restaurant);
+  const dispatch = useDispatch();
+  // const { list, get } = useContext(RestaurantContext);
+  // const getRestaurant = get;
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -15,7 +18,7 @@ function DropDown() {
     // console.log(event.target.value);
   };
   const place = (area) => {
-    getRestaurant(area);
+    dispatch(get_restaurant(area));
   };
   const handleClose = (event) => {
     setAnchorEl(null);
@@ -52,6 +55,15 @@ function DropDown() {
           }}
         >
           HazratGanj
+        </MenuItem>
+
+        <MenuItem
+          onClick={() => {
+            handleClose();
+            place("Adil Nagar");
+          }}
+        >
+          Adil Nagar
         </MenuItem>
       </Menu>
     </div>

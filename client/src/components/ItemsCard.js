@@ -7,18 +7,21 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import { useSelector, useDispatch } from "react-redux";
+import { addtocart, removefromcart } from "../action/action";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+    width: 300,
   },
   media: {
     height: 140,
   },
 });
 
-export default function ItemCard() {
+export default function ItemsCard({ item }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   return (
     <div className="col-lg-4 d-flex  justify-content-around mt-5">
@@ -26,20 +29,23 @@ export default function ItemCard() {
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image="/static/images/cards/contemplative-reptile.jpg"
+            image={"http://localhost:4000/images/" + item.pic}
             title="Contemplative Reptile"
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
-              Lizard-5$
+              {item.name}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              Lizards are a widespread group of squamate reptiles, with over
-              6,000 species, ranging across all continents except Antarctica
+              {item.description}
             </Typography>
           </CardContent>
         </CardActionArea>
         <CardActions>
+          <button onClick={() => dispatch(addtocart(item))}>Increment</button>
+          <button onClick={() => dispatch(removefromcart(item.name))}>
+            Decrement
+          </button>
           <Button size="small" color="primary">
             Add to Cart
           </Button>

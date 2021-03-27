@@ -72,12 +72,19 @@ export default function SellerRegisteration() {
   const [success, setSuccess] = useState(false);
   const [hookthumbnail, sethookthunmbnail] = useState([]);
   const [hookid, sethookid] = useState("");
+
   const validateEmail = (e) => {
     e.preventDefault();
     if (validator.isEmail(email)) {
-      register(e);
+      if (hookthumbnail.length == 3 && typeof hookid == "object") {
+        register(e);
+      } else {
+        registerStatus("Please select pictures as mentioned!");
+        window.scrollTo(0, 0);
+      }
     } else {
       registerStatus("Enter valid Email!");
+      window.scrollTo(0, 0);
     }
   };
 
@@ -85,24 +92,18 @@ export default function SellerRegisteration() {
     e.preventDefault();
 
     let formData = new FormData();
-    formData.append("name", name);
-    formData.append("email", email);
-    formData.append("password", password);
-    formData.append("restaurantName", restaurantName);
-    formData.append("address", restaurantAddress);
-    formData.append("cruisine", cruisine);
-    formData.append("minimumorder", minimumOrder);
-    formData.append("tel", tel);
+    formData.append("Name", name);
+    formData.append("Email", email);
+    formData.append("Password", password);
+    formData.append("Restaurant_Name", restaurantName);
+    formData.append("Address", restaurantAddress);
+    formData.append("Cruisine", cruisine);
+    formData.append("Minimum_Order", minimumOrder);
+    formData.append("Telephone", tel);
+    formData.append("Area", area);
     formData.append("thumbnail", hookthumbnail[0]);
     formData.append("thumbnail1", hookthumbnail[1]);
     formData.append("thumbnail2", hookthumbnail[2]);
-
-    // formData.append("thumbnail", hookthumbnail);
-    // hookthumbnail.forEach((file) => {
-    //   console.log(file);
-    //   formData.append("thumbnail", file);
-    // });
-
     formData.append("id", hookid);
     console.log("yyyy");
     console.log(hookthumbnail[0]);
@@ -138,50 +139,15 @@ export default function SellerRegisteration() {
           setSuccess(true);
         })
         .catch((error) => {
-          console.log(error.response);
-          if (
-            error.response.data.msg ===
-            '"name" length must be at least 6 characters long'
-          ) {
-            registerStatus("Name length must be of 6 Characters long");
-          }
+          console.log(error);
+          window.scrollTo(0, 0);
 
-          if (error.response.data.msg === '"name" is not allowed to be empty') {
-            registerStatus("Name Field Cannot be empty");
-          }
-
-          if (
-            error.response.data.msg ===
-            '"email" length must be at least 6 characters long'
-          ) {
-            registerStatus("Email length must be of 6 Characters long");
-          }
-
-          if (
-            error.response.data.msg === '"email" is not allowed to be empty'
-          ) {
-            registerStatus("Email Field Cannot be empty");
-          }
-
-          if (error.response.data.msg === "email exists") {
-            registerStatus("Email already exists");
-          }
-
-          if (
-            error.response.data.msg ===
-            '"password" length must be at least 6 characters long'
-          ) {
-            registerStatus("Password length must be of 6 Characters long");
-          }
-
-          if (
-            error.response.data.msg === '"password" is not allowed to be empty'
-          ) {
-            registerStatus("Password Field Cannot be empty");
-          }
+          registerStatus(error.response.data.msg);
         });
     } catch (error) {
       console.log(error.reponse);
+      window.scrollTo(0, 0);
+      registerStatus(error.response.data.msg);
     }
   };
 
@@ -204,18 +170,6 @@ export default function SellerRegisteration() {
           </Typography>
           <form className={classes.form} noValidate>
             <Grid container spacing={2}>
-              {/* {[
-                { name: "name", label: "Your Name" },
-                { name: "restaurantname", label: "Restaurant Name" },
-                { name: "area", label: "Area" },
-                { name: "address", label: "Restaurant Address" },
-                { name: "cruisine", label: "Cruisine Type" },
-                { name: "minimumorder", label: "Minimum Order" },
-                { name: "tel", label: "Contact Number" },
-
-                // {name:"time",label:"Timings"}
-              ].map((input) => (
-                // <Link to={`/restaurant/${res._id}`}> */}
               <Grid item xs={12}>
                 <TextField
                   variant="outlined"
@@ -223,7 +177,7 @@ export default function SellerRegisteration() {
                   fullWidth
                   id="name"
                   label="Your Name"
-                  name="name"
+                  name="Name"
                   onChange={(e) => {
                     setName(e.target.value);
                   }}
@@ -237,7 +191,7 @@ export default function SellerRegisteration() {
                   fullWidth
                   id="email"
                   label="Your Email"
-                  name="email"
+                  name="Email"
                   onChange={(e) => {
                     setEmail(e.target.value);
                   }}
@@ -251,7 +205,7 @@ export default function SellerRegisteration() {
                   fullWidth
                   id="password"
                   label="Password"
-                  name="password"
+                  name="Password"
                   onChange={(e) => {
                     setPassword(e.target.value);
                   }}
@@ -264,7 +218,7 @@ export default function SellerRegisteration() {
                   fullWidth
                   id="area"
                   label="Area"
-                  name="arae"
+                  name="Arae"
                   onChange={(e) => {
                     setArea(e.target.value);
                   }}
@@ -277,7 +231,7 @@ export default function SellerRegisteration() {
                   fullWidth
                   id="area"
                   label="Restaurant Name"
-                  name="restaurantName"
+                  name="Restaurant_Name"
                   onChange={(e) => {
                     setRestaurantName(e.target.value);
                   }}
@@ -290,7 +244,7 @@ export default function SellerRegisteration() {
                   fullWidth
                   id="address"
                   label="Restaurant Address"
-                  name="restaurantAddress"
+                  name="Restaurant_Address"
                   onChange={(e) => {
                     setRestaurantAddress(e.target.value);
                   }}
@@ -303,7 +257,7 @@ export default function SellerRegisteration() {
                   fullWidth
                   id="cruisine"
                   label="Cruisine Type"
-                  name="cruisine"
+                  name="Cruisine"
                   onChange={(e) => {
                     setCruisine(e.target.value);
                   }}
@@ -316,7 +270,7 @@ export default function SellerRegisteration() {
                   fullWidth
                   id="minimumOrder"
                   label="Minimum Order in Rs."
-                  name="minimumOrder"
+                  name="Minimum_Order"
                   onChange={(e) => {
                     setMinimumOrder(e.target.value);
                   }}
@@ -329,7 +283,7 @@ export default function SellerRegisteration() {
                   fullWidth
                   id="tel"
                   label="Telephone"
-                  name="tel"
+                  name="Telephone"
                   onChange={(e) => {
                     setTel(e.target.value);
                   }}

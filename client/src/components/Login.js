@@ -61,39 +61,42 @@ export default function Login() {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [status, registerStatus] = useState();
+  const [status, loginStatus] = useState();
   const [success, setSuccess] = useState(false);
 
   const validateEmail = (e) => {
     e.preventDefault();
     if (validator.isEmail(email)) {
-      register(e);
+      login(e);
     } else {
-      registerStatus("Enter valid Email!");
+      window.scroll(0, 0);
+      loginStatus("Enter valid Email!");
     }
   };
 
-  const register = async (e) => {
+  const login = async (e) => {
     e.preventDefault();
 
-    Axios.post("http://localhost:5000/api/user/login", {
+    Axios.post("http://localhost:4000/userlogin", {
       // name: userName,
       email: email,
       password: password,
     })
       .then((response) => {
         console.log(response.data);
-        localStorage.setItem("auth-token", response.data);
+        localStorage.setItem("user-auth-token", response.data.msg);
         // setSuccess(true);
       })
       .catch((error) => {
+        window.scroll(0, 0);
+        loginStatus(error.response.data.msg);
         console.log(error.response.data.msg);
       });
   };
 
   return (
     <>
-      {success ? <Redirect to="/restaurant" /> : null}
+      {/* {success ? <Redirect to="/restaurant" /> : null} */}
 
       <div className={classes.root}>
         {status ? <Alert severity="error">{status}</Alert> : null}
@@ -110,20 +113,6 @@ export default function Login() {
           </Typography>
           <form className={classes.form} noValidate>
             <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="name"
-                  label="Full Name"
-                  name="name"
-                  autoComplete="name"
-                  onChange={(e) => {
-                    setUserName(e.target.value);
-                  }}
-                />
-              </Grid>
               <Grid item xs={12}>
                 <TextField
                   variant="outlined"
@@ -170,7 +159,7 @@ export default function Login() {
               className={classes.submit}
               onClick={validateEmail}
             >
-              Sign Up
+              Login
             </Button>
             <Grid container justify="flex-end">
               <Grid item>
