@@ -7,7 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -17,7 +17,11 @@ const useStyles = makeStyles({
     height: 140,
   },
 });
-
+function settostorage(res) {
+  localStorage.setItem("restauranthome", JSON.stringify(res));
+  console.log("returning");
+  // return <Link to="/restaurant" />;
+}
 function MediaCard({ res }) {
   const classes = useStyles();
   console.log(res);
@@ -41,8 +45,19 @@ function MediaCard({ res }) {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Link to={{ pathname: "/restaurant", state: { res: res } }}>
-            <Button size="small" color="primary">
+          <Link
+            to={{
+              pathname: "/restaurant",
+              // state: { restaurant: res.restaurantName },
+            }}
+          >
+            <Button
+              onClick={() => {
+                settostorage(res);
+              }}
+              size="small"
+              color="primary"
+            >
               Order
             </Button>
           </Link>

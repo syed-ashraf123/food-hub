@@ -9,6 +9,8 @@ const cartReducer = (state = [], action) => {
           return obj.name != action.payload;
         }),
       ];
+    case "CLEAR CART":
+      return (state = []);
     default:
       return state;
   }

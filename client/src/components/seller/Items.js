@@ -12,10 +12,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { itemsfetchedsuccess, itemsfetch } from "../../action/action";
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+    width: 345,
   },
   media: {
-    height: 140,
+    height: 170,
   },
 });
 export default function Items() {
@@ -45,34 +45,40 @@ export default function Items() {
   }, []);
 
   return (
-    <div>
+    <div className="row">
       {item.map((items) => (
-        <div className="mt-5">
-          <Card className={classes.root}>
-            <CardActionArea>
-              <CardMedia
-                className={classes.media}
-                image={"http://localhost:4000/images/" + items.pic}
-                title="Contemplative Reptile"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                  {items.name}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  {items.description}{" "}
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-            <CardActions>
-              <Button size="small" color="primary">
-                {items.price}
-              </Button>
-              <Button size="small" color="primary">
-                Learn More
-              </Button>
-            </CardActions>
-          </Card>
+        <div className="col-lg-4 d-flex  justify-content-around mt-5">
+          <div className="mt-5">
+            <Card className={classes.root}>
+              <CardActionArea>
+                <CardMedia
+                  className={classes.media}
+                  image={"http://localhost:4000/images/" + items.pic}
+                  title="Contemplative Reptile"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {items.name}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    {items.description}{" "}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Button size="small" color="primary">
+                  {items.price}
+                </Button>
+                <Button size="small" color="primary">
+                  Learn More
+                </Button>
+              </CardActions>
+            </Card>
+          </div>
         </div>
       ))}
     </div>

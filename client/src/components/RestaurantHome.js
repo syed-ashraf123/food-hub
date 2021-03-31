@@ -11,13 +11,12 @@ import { Button } from "@material-ui/core";
 
 function RestaurantHome(props) {
   const dispatch = useDispatch();
-
-  console.log(props);
-  if (typeof props.location.state === "undefined") {
+  var res = localStorage.getItem("restauranthome");
+  if (res === null) {
     return <Redirect to="/" />;
   }
 
-  const { res } = props.location.state;
+  res = JSON.parse(res);
 
   const items = res.items;
   // const reqUrl = "http://localhost:4000/items";
@@ -109,7 +108,7 @@ function RestaurantHome(props) {
       <div className="row">
         {console.log("Printing Res ", res.items)}
         {items.map((item) => (
-          <ItemsCard item={item} />
+          <ItemsCard item={item} res={res} />
         ))}
       </div>
       <Link to="/checkout">

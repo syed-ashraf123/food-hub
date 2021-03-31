@@ -1,6 +1,13 @@
 const router = require("express").Router();
 const sellerdetails = require("../models/SellerDetails");
 const verify = require("./verifytoken");
+// const socketio = require("socket.io");
+// const io = require("socket.io")(server, {
+//   cors: {
+//     origin: "http://localhost:3000",
+//     methods: ["GET", "POST"],
+//   },
+// });
 
 // router.post(
 //   "/",
@@ -26,6 +33,17 @@ router.get(
   verify,
 
   async (req, res) => {
+    //   io.on("connection", (socket) => {
+    //     console.log("We have a new connection");
+    //     socket.on("req.id._id", ({ name }) => {
+    //       console.log(name);
+    //       // callback();
+    //     });
+    //     socket.on("disconnect", () => {
+    //       console.log("Disconnection");
+    //     });
+    //   });
+
     res.status(200).send({ msg: "Hey You are Verified" });
     //Email present or not
     // const seller = await sellerdetails.findOne({ email: req.body.email });

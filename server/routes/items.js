@@ -8,7 +8,7 @@ router.get(
   async (req, res) => {
     //Finding the user
     console.log("Request for items");
-    console.log(req.seller._id);
+    console.log(req.id._id);
     const seller = await SellerDetails.findOne({ _id: req.id._id });
     if (!seller) return res.status(400).send({ msg: "Seller Not Found" });
 

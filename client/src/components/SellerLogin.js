@@ -124,7 +124,7 @@ export default function SelllerLogin() {
 
   return (
     <>
-      {/* {success ? <Redirect to="/restaurant" /> : null} */}
+      {success ? <Redirect to="/sellerdashboard" /> : null}
 
       <div className={classes.root}>
         {status ? <Alert severity="error">{status}</Alert> : null}

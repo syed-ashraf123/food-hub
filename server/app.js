@@ -1,8 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-
+const socketio = require("socket.io");
 const app = express();
+const http = require("http");
+const server = http.createServer(app);
+
 const SellerDetails = require("./models/SellerDetails.js");
 // const fs = require("fs");
 // const path = require("path");
@@ -15,6 +18,27 @@ app.use(cors());
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
+//socket
+// const io = socketio(server);
+// const io = require("socket.io")(server, {
+//   cors: {
+//     origin: "http://localhost:3000",
+//     methods: ["GET", "POST"],
+//   },
+// });
+
+// io.on("connection", (socket) => {
+//   console.log("We have a new connection");
+//   socket.on("join", ({ name }, callback) => {
+//     console.log(socket.handshake.headers.referer);
+//     console.log(name);
+//     // callback();
+//   });
+//   socket.on("disconnect", () => {
+//     console.log("Disconnection");
+//   });
+// });
+
 //Routers
 
 const sellerregisterationRoute = require("./routes/sellerregisteration");
@@ -25,6 +49,9 @@ const itemsRoute = require("./routes/items");
 const usersignupRoute = require("./routes/usersignup");
 const userloginRoute = require("./routes/userlogin");
 const userdetailsRoute = require("./routes/userdetails");
+const sellerdetailsRoute = require("./routes/sellerdetails");
+const updateuserdetailsRoute = require("./routes/updateuserdetails");
+const updatesellerdetailsRoute = require("./routes/updatesellerdetails");
 
 // parse application/json
 app.use(bodyParser.json());
@@ -44,12 +71,15 @@ mongoose.connect(
 
 app.use("/restaurantregisteration", sellerregisterationRoute);
 app.use("/sellerlogin", sellerloginRoute);
+app.use("/sellerdetails", sellerdetailsRoute);
 app.use("/sellerdashboard", sellerdashboardRoute);
 app.use("/additems", additemsRoute);
 app.use("/items", itemsRoute);
 app.use("/usersignup", usersignupRoute);
 app.use("/userlogin", userloginRoute);
 app.use("/userdetails", userdetailsRoute);
+app.use("/updateuserdetails", updateuserdetailsRoute);
+app.use("/updatesellerdetails", updatesellerdetailsRoute);
 
 app.get("/", async (req, res) => {
   var query = { area: req.query.area };
@@ -57,4 +87,4 @@ app.get("/", async (req, res) => {
   res.json(data);
 });
 
-app.listen(4000);
+server.listen(4000);

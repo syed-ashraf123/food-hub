@@ -1,11 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Axios from "axios";
+import io from "socket.io-client";
+import { Redirect } from "react-router-dom";
 function Checkout() {
+  let socket;
   const cart = useSelector((state) => state.cart);
   const [name, setName] = useState("Loading...");
   const [email, setEmail] = useState("Loading...");
   const [address, setAddress] = useState("Loading...");
+  const res = JSON.parse(localStorage.getItem("restaurant"));
+  console.log(res);
+  function sendrequest(e) {
+    e.preventDefault();
+    const res = JSON.parse(localStorage.getItem("restaurant"));
+    socket = io("http://localhost:4000?sad=sdsd");
+    console.log(socket);
+    socket.emit("join", { name });
+
+    // socket.emit("disconnect");
+    // socket.off()
+  }
+
   useEffect(() => {
     // if (!sign_in) {
     //   <Redirect to="/sellerdashboard" />;
@@ -44,15 +60,19 @@ function Checkout() {
   console.log(totalprice);
   return (
     <div className="ml-5 mr-5">
+      {localStorage.getItem("user-auth-token") ? null : (
+        <Redirect to="/login" />
+      )}
+
       <div className="py-5 text-center">
         <img
           className="d-block mx-auto mb-4"
-          src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg"
+          src={"http://localhost:4000/images/" + res.thumbnail[0]}
           alt=""
-          width={72}
-          height={72}
+          width={250}
+          height={200}
         />
-        <h2>Checkout form</h2>
+        <h2>{res.restaurantName}</h2>
         <p className="lead">
           Below is an example form built entirely with Bootstrap's form
           controls. Each required form group has a validation state that can be
@@ -168,7 +188,11 @@ function Checkout() {
             </div>
 
             <hr className="mb-4" />
-            <button className="btn btn-primary btn-lg btn-block" type="submit">
+            <button
+              onClick={(e) => {
+                sendrequest(e);
+              }}
+            >
               Continue to checkout
             </button>
           </form>

@@ -79,23 +79,29 @@ function Navbar1() {
       <Navbar.Collapse>
         <Nav className="ml-auto d-line">
           <Nav.Item>
-            <Nav.Link eventKey="1" as={Link} to="/sellerlogin">
-              Seller Login
-            </Nav.Link>
+            {localStorage.getItem("user-auth-token") ? (
+              <Nav.Link eventKey="1" as={Link} to="/logout">
+                Logout
+              </Nav.Link>
+            ) : (
+              <Nav.Link eventKey="2" as={Link} to="/login">
+                Login
+              </Nav.Link>
+            )}
           </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey="2" as={Link} to="/sellerdashboard">
-              Seller Dashboard
+          {/* <Nav.Item>
+            <Nav.Link eventKey="2" as={Link} to="/logout">
+              Logout
             </Nav.Link>
-          </Nav.Item>
+          </Nav.Item> */}
           <Nav.Item>
             <Nav.Link eventKey="3" as={Link} to="/">
               Home
             </Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link eventKey="4" as={Link} to="/login">
-              USere Login
+            <Nav.Link eventKey="4" as={Link} to="/checkout">
+              Checkout
             </Nav.Link>
           </Nav.Item>
         </Nav>

@@ -85,7 +85,7 @@ export default function Login() {
       .then((response) => {
         console.log(response.data);
         localStorage.setItem("user-auth-token", response.data.msg);
-        // setSuccess(true);
+        setSuccess(true);
       })
       .catch((error) => {
         window.scroll(0, 0);
@@ -96,7 +96,8 @@ export default function Login() {
 
   return (
     <>
-      {/* {success ? <Redirect to="/restaurant" /> : null} */}
+      {localStorage.getItem("user-auth-token") ? <Redirect to="/" /> : null}
+      {success ? <Redirect to="/" /> : null}
 
       <div className={classes.root}>
         {status ? <Alert severity="error">{status}</Alert> : null}

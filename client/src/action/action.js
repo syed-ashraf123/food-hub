@@ -101,3 +101,9 @@ export const removefromcart = (name) => {
     payload: name,
   };
 };
+
+export const clearcart = () => {
+  return {
+    type: "CLEAR CART",
+  };
+};

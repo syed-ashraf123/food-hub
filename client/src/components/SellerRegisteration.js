@@ -111,23 +111,7 @@ export default function SellerRegisteration() {
     try {
       Axios.post(
         "http://localhost:4000/restaurantregisteration",
-        // {
-        //   name: name,
-        //   email: email,
-        //   password: password,
-        //   area: area,
-        //   restaurantName: restaurantName,
-        //   address: restaurantAddress,
-        //   cruisine: cruisine,
-        //   minimumorder: minimumOrder,
-        //   tel: tel,
-        //   thumbnail: [
-        //     thumbnailImage.files[0],
-        //     thumbnailImage.files[1],
-        //     thumbnailImage.files[2],
-        //   ],
-        //   id: ownerid.files[0],
-        // },
+
         formData,
         {
           headers: {
